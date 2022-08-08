@@ -1,55 +1,15 @@
-let cells = ["", "", "", "", "", "", "", "", ""];
-let currentPlayer = "X";
-let result = document.querySelector(".result");
-let btns = document.querySelectorAll(".btn");
+let celdas=["","","","","","","","",""]
+let jugadoractual="x"
+let resultado=document.querySelector(".result")
+let botones=document.querySelectorAll(".btn")
 
-let conditions = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [2, 4, 6],
-  [0, 4, 8],
+let condiciones=[
+  [0,1,2],
+  [3,4,5],
+  [6,7,8],
+  [0,3,6],
+  [1,4,7],
+  [2,5,8],
+  [2,4,6],
+  [0,4,8],
 ];
-
-const triki = (element, i) => {
-  element.value = currentPlayer;
-  element.disabled = true;
-  cells[i] = currentPlayer;
-  currentPlayer = currentPlayer == "X" ? "O" : "X";
-  result.innerHTML = `Player ${currentPlayer} Turn`;
-  for (let i = 0; i < conditions.length; i++) {
-    let condition = conditions[i];
-    let a = cells[condition[0]];
-    let b = cells[condition[1]];
-    let c = cells[condition[2]];
-
-    if (a == "" || b == "" || c == "") {
-      continue;
-    }
-
-    if (a == b && b == c) {
-      result.innerHTML = `Player ${a} Won 🎉`;
-      
-      btns.forEach((btn) => (btn.disabled = true));
-    }
-  }
-};
-const reset = () => {
-     cells = ["", "", "", "", "", "", "", "", ""];
-     btns.forEach(element => {
-          element.value = ""
-          element.disabled=false
-     })
-     currentPlayer = 'X'
-     result.innerHTML = `Player ${currentPlayer} Turn`;
-     
-}
-
-document.querySelector('#reset').addEventListener('click', reset);
-
-btns.forEach((boton, indice) => {
-  boton.addEventListener("click", () => triki(boton, indice));
-});
